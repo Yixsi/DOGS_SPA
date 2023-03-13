@@ -245,6 +245,10 @@ Ten en cuenta que en esta instancia no es obligatorio el desarrollo de testing p
 <br />
 
 <img src="./dogs.jpg" alt="" width="1000px" />
+<<<<<<< HEAD
 #   D O G S _ S P A 
  
  
+=======
+#
+>>>>>>> 066f801976cef0c23642ea686d13614e33ee50d4
