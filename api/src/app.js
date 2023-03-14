@@ -23,6 +23,8 @@ server.use((req, res, next) => {
 });
 
 server.use('/', routes);
+//ante cualquier peticion utiliza un middleware para que la petición pase a la carpeta principal de routes
+//y apartir de ahí direccionar la request a la ruta que le corresponda.
 
 // Error catching endware.
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
