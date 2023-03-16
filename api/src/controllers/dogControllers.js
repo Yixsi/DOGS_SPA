@@ -1,81 +1,102 @@
 const axios = require('axios');
 require("dotenv").config();
-const { Dog } = require('../db')
+const { Dog } = require('../db');
+const { Op } = require('sequelize');
 
 const { API_KEY } = process.env;
 
 module.exports = {
     
     listDogs: async () =>{
-        const result = await axios(`https://api.thedogapi.com/v1/breeds/?api_key=${API_KEY}`);
-        
-        const dbDogs = await Dog.findAll();
+        const result = await axios(
+          `https://api.thedogapi.com/v1/breeds/?api_key=${API_KEY}`
+        );
+        let dbDogs = await Dog.findAll();
 
-        if(!result && !dbDogs) throw Error('Nothing to show');
+        if(!result && !dbDogs) throw new Error('Nothing to show');
 
-        const data = [...result.data, ...dbDogs];
+        let data = [...result.data];
 
-        const format = data.map(dog => { return {
-                id: dog.id,
+        data = data.map(dog => { return {
+                image: dog.image.url,
                 name: dog.name,
-                life_span: dog.life_span,
-                image: dog.image
+                temper: dog.temperament, 
+                weight: dog.weight.metric
+
             }
         });
-        console.log(format.length);
-        return format;
+
+        dbDogs = dbDogs.map(dog => {
+              return {
+                image: dog.image,
+                name: dog.name,
+                temper: dog.temper, 
+                weight: dog.weight
+
+              }
+          });
+
+          data = [...data, ...dbDogs];
+        return data;
     },
 
-    createDog: async (name, image, height, weight, life_span) =>{
+    createDog: async (name, image, height, weight, life_span, temper) => {
 
-        if(!name || !image || !height || !weight || !life_span) throw Error('Missing data');
+        if(!name || !image || !height || !weight || !life_span || !temper) throw new Error('Missing data');
 
-        const newDog = await Dog.create({
-          name,
-          image,
-          height,
-          weight,
-          life_span,
-        });
-
+        const newDog = await Dog.create({name, image, height, weight, life_span, temper});
         return newDog;
+    },
+
+    getDetail: async (id) => {
+        try {
+          const dogDB = await Dog.findByPk(id);
+
+          if (dogDB) {
+            return dogDB;
+
+          } else {
+            throw new Error('Dog not found in database');
+          }
+        } catch (error) {
+          // If the search in the DB fails, then we look in the API.
+
+          const dogApi = await axios(`https://api.thedogapi.com/v1/breeds/${id}/?api_key=${API_KEY}`);
+
+          if (Object.keys(dogApi.data).length !== 0) {
+            const detail = {
+              id: dogApi.data.id,
+              image: dogApi.data.image,
+              name: dogApi.data.name,
+              height: dogApi.data.height.metric,
+              weight: dogApi.data.weight.metric,
+              temper: dogApi.data.temperament,
+              life_span: dogApi.data.life_span
+            }
+            return detail;
+
+          } else {
+            throw new Error('Dog not found');
+          }
+        }
+
+      },
+
+    getDogByName: async (name) =>{
+
+      let dogs = await Dog.findAll({
+        where: {
+          name:{
+            [Op.iLike]: `%${name}%` 
+          }
+        }
+      });
+      
+      const dogsApi = await axios(`https://api.thedogapi.com/v1/breeds/search?name=${name}&api_key=${API_KEY}`);
+      
+
+      dogs = [...dogs, ...dogsApi.data]
+
+      return dogs;
     }
 }
-
-// const data = result.data;
-
-// const format = data.map((dog) => {
-//   return {
-//     name: dog.name,
-//     age: dog.age,
-//     img: dog.img,
-//   };
-// });
-// return format;
-
-//OBJECT DOG
-
-// {
-// 		"weight": {
-// 			"imperial": "6 - 13",
-// 			"metric": "3 - 6"
-// 		},
-// 		"height": {
-// 			"imperial": "9 - 11.5",
-// 			"metric": "23 - 29"
-// 		},
-// 		"id": 1,
-// 		"name": "Affenpinscher",
-// 		"bred_for": "Small rodent hunting, lapdog",
-// 		"breed_group": "Toy",
-// 		"life_span": "10 - 12 years",
-// 		"temperament": "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving",
-// 		"origin": "Germany, France",
-// 		"reference_image_id": "BJa4kxc4X",
-// 		"image": {
-// 			"id": "BJa4kxc4X",
-// 			"width": 1600,
-// 			"height": 1199,
-// 			"url": "https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg"
-// 		}
-// 	},
