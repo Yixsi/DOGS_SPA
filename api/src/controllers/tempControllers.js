@@ -1,11 +1,32 @@
-const { Temper } = require('/..db');
-
-const tempers = [  'Stubborn', 'Curious', 'Playful', 'Adventurous', 'Active', 'Fun-loving',  'Aloof', 'Clownish', 'Dignified', 'Independent', 'Happy',  'Wild', 'Hardworking', 'Dutiful',  'Outgoing', 'Friendly', 'Alert', 'Confident', 'Intelligent', 'Courageous',  'Loyal', 'Independent', 'Intelligent', 'Brave',  'Docile', 'Alert', 'Responsive', 'Dignified', 'Composed', 'Friendly', 'Receptive', 'Faithful', 'Courageous',  'Loving', 'Protective', 'Trainable', 'Dutiful', 'Responsible',  'Energetic', 'Loyal', 'Gentle', 'Confident',  'Affectionate', 'Devoted', 'Dignified', 'Playful', 'Assertive', 'Dominant',  'Strong Willed', 'Stubborn', 'Clownish', 'Affectionate', 'Obedient', 'Intelligent', 'Courageous',  'Reserved', 'Protective',  'Kind', 'Sweet-Tempered', 'Independent', 'Loving',  'Tenacious', 'Devoted', 'Attentive',  'Steady', 'Bold', 'Proud',  'Reliable', 'Fearless', 'Lively', 'Self-assured',  'Cautious', 'Protective', 'Brave',  'Eager',  'Good-natured', 'Active',  'Spirited', 'Companionable', 'Even Tempered', 'Courageous',  'Rugged', 'Fierce', 'Refined',  'Joyful',  'Curious',  'Agile',  'Sweet-Tempered',  'Excitable', 'Determined',  'Self-confidence', 'Hardy',  'Sensitive',  'Watchful',  'Faithful',  'Feisty', 'Cheerful',  'Easygoing', 'Adaptable', 'Trusting', 'Lovable',  'Obedient',  'Territorial',  'Keen', 'Responsive'];
+require("dotenv").config();
+const axios = require('axios');
+const { Temper } = require('../db');
+const { API_KEY } = process.env;
 
 module.exports = {
 
-  addTemper: async (tempers) =>{
-    const result = await Temper.bulkCreate(tempers);
+  listTempers: async () => {
+    
+    const result = await axios(`https://api.thedogapi.com/v1/breeds/?api_key=${API_KEY}`);
+
+
+    const tempers = result.data.map(dog => dog.temperament? dog.temperament : '').map(str => str?.split(', '));
+
+    const uniqueTemps = new Set(tempers.flat());
+
+
+    Array.from(uniqueTemps).map( async temp => {
+
+      await Temper.findOrCreate({
+        where: { name: temp }
+      })
+    });
+
+    const temps = await Temper.findAll({ order: [['id', 'ASC']] });
+
+    if(temps) return temps;
+   
+    throw new Error('Something went wrong');
     
   }
 }

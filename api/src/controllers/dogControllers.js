@@ -17,6 +17,8 @@ module.exports = {
 
         let data = [...result.data];
 
+        console.log(dbDogs)
+
         data = data.map(dog => { return {
                 image: dog.image.url,
                 name: dog.name,
@@ -93,10 +95,40 @@ module.exports = {
       });
       
       const dogsApi = await axios(`https://api.thedogapi.com/v1/breeds/search?name=${name}&api_key=${API_KEY}`);
+
+      let data = [...dogsApi.data];
       
+      dogs = dogs.map(dog => {
+              return {
+                image: dog.image,
+                name: dog.name,
+                temper: dog.temper, 
+                weight: dog.weight
 
-      dogs = [...dogs, ...dogsApi.data]
+              }
+          });
+      
+      data = data.map(dog => {
+              return {
+                image: dog.image,
+                name: dog.name,
+                temper: dog.temperament, 
+                weight: dog.weight.metric
 
-      return dogs;
+              }
+          });
+
+
+      if(dogs && data){
+        dogs = [...dogs, ...data];
+
+        return dogs
+      } else if(dogs.error && data){
+
+        return [...data];
+
+      }else if(dogs && dogsApi.error) return dogs;
+      
+      if(!dogs && !data) throw Error('Something went wrong');
     }
 }
