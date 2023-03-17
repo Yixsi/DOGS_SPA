@@ -1,6 +1,6 @@
 const axios = require('axios');
 require("dotenv").config();
-const { Dog } = require('../db');
+const { Dog, Temper } = require('../db');
 const { Op } = require('sequelize');
 
 const { API_KEY } = process.env;
@@ -11,7 +11,15 @@ module.exports = {
         const result = await axios(
           `https://api.thedogapi.com/v1/breeds/?api_key=${API_KEY}`
         );
-        let dbDogs = await Dog.findAll();
+        let dbDogs = await Dog.findAll({
+          include: {
+            model: Temper,
+            attributes: ['name'],
+            through: {
+              attributes: []
+            }
+          }
+        });
 
         if(!result && !dbDogs) throw new Error('Nothing to show');
 
@@ -32,9 +40,8 @@ module.exports = {
               return {
                 image: dog.image,
                 name: dog.name,
-                temper: dog.temper, 
-                weight: dog.weight
-
+                weight: dog.weight,
+                temper: dog.tempers
               }
           });
 
@@ -46,13 +53,22 @@ module.exports = {
 
         if(!name || !image || !height || !weight || !life_span || !temper) throw new Error('Missing data');
 
-        const newDog = await Dog.create({name, image, height, weight, life_span, temper});
+        const newDog = await Dog.create({name, image, height, weight, life_span});
+        await newDog.addTemper(temper);
         return newDog;
     },
 
     getDetail: async (id) => {
         try {
-          const dogDB = await Dog.findByPk(id);
+          const dogDB = await Dog.findByPk(id, {
+            include: {
+              model: Temper,
+              attributes: ['name'],
+              through: {
+                attributes: []
+              }
+            }
+          });
 
           if (dogDB) {
             return dogDB;
@@ -91,6 +107,13 @@ module.exports = {
           name:{
             [Op.iLike]: `%${name}%` 
           }
+        },
+        include: {
+          model: Temper,
+          attributes: ['name'],
+          through: {
+            attributes: []
+          }
         }
       });
       
@@ -102,7 +125,7 @@ module.exports = {
               return {
                 image: dog.image,
                 name: dog.name,
-                temper: dog.temper, 
+                temper: dog.tempers, 
                 weight: dog.weight
 
               }
