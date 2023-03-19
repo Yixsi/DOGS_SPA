@@ -1,0 +1,69 @@
+.rowOne {
+    grid-column: 1/4;
+    grid-row: 2/3;
+    margin: 8% 2% 2% 4%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.spanInfo {
+    font-size: 23px;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    word-spacing: 3px;
+    letter-spacing: -0.1rem;
+    color: #68d248;
+}
+
+.cards {
+    grid-row: 3/4;
+    grid-column: 1/4;
+    display: grid;
+    gap: 1rem;
+    grid-auto-rows: 22rem;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    justify-content: space-around;
+    margin-left: 1rem;
+    
+}
+
+.buttonGroup {
+    background-color: #0ea8a8;
+    height: fit-content;
+    padding: 5px 6px;
+    border-radius: 5px;
+
+}
+
+.buttons {
+    background-color: #0fc8c800;
+    color: #fff;
+    padding: 5px 10px;
+    transition: all 0.6s ease-in;
+    font-size: 22px;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.1rem;
+    border: none;
+}
+
+.buttons:hover {
+    cursor: pointer;
+    background-color: #096c77;
+    border-radius: 3px;
+}
+
+.pagesButtons {
+    font-size: 2rem;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    padding: 2px;
+    float: right;
+}
+
+.pagesButtons:hover {
+    border-radius: 23%;
+    padding: 2px;
+    font-size: 2.1rem;
+}

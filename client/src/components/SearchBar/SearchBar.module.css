@@ -1,0 +1,34 @@
+.searchBar {
+    border: 2px solid #0fc8c8;
+    border-radius: 15px;
+    transition: all 0.5s ease-in-out;
+}
+
+.searchBar:hover {
+    background-color: rgba(186, 120, 237, 0.232);
+}
+
+.input {
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.09rem;
+    outline: none;
+    box-shadow: none;
+    padding: 10px;
+    border: none;
+    font-size: 25px;
+    background-color: transparent;
+    color: #54ecec;
+}
+
+.button {
+    outline: none;
+    box-shadow: none;
+    border: none;
+    padding: 10px;
+    background-color: transparent;
+    color: white;
+    font-weight: 700;
+    font-size: 25px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+}

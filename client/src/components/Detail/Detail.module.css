@@ -1,0 +1,46 @@
+.modalContainer {
+    grid-column: 2/3;
+    margin: 10% 10%;
+    width: 100%;
+    background-color: white;
+    border-radius: 20px;
+    z-index: 3;
+}
+
+.modalElements {
+    display: grid;
+    grid-template-columns: 57% 5%;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.name {
+    font-size: 27px;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.1rem;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-left: 5px;
+    padding: 8px 30px;
+    align-self: center;
+    border-bottom: 2px solid #68d248;
+}
+
+.info {
+    list-style: none;
+    margin-top: 0;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 20px;
+    word-spacing: 20px;
+}
+
+.imgDetail {
+    right: 0;
+    border-radius: 0 20px 20px 0;
+    height: 320px;
+    width: 320px;
+}

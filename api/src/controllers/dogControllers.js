@@ -28,20 +28,23 @@ module.exports = {
         console.log(dbDogs)
 
         data = data.map(dog => { return {
+                id: dog.id,
                 image: dog.image.url,
                 name: dog.name,
                 temper: dog.temperament, 
-                weight: dog.weight.metric
-
+                weight: dog.weight.metric,
+                dog: 'api'
             }
         });
 
         dbDogs = dbDogs.map(dog => {
               return {
+                id: dog.id,
                 image: dog.image,
                 name: dog.name,
                 weight: dog.weight,
-                temper: dog.tempers
+                temper: dog.tempers,
+                origin: dog.origin
               }
           });
 
@@ -55,10 +58,12 @@ module.exports = {
 
         const newDog = await Dog.create({name, image, height, weight, life_span});
         await newDog.addTemper(temper);
+        
         return newDog;
     },
 
     getDetail: async (id) => {
+
         try {
           const dogDB = await Dog.findByPk(id, {
             include: {
@@ -84,7 +89,7 @@ module.exports = {
           if (Object.keys(dogApi.data).length !== 0) {
             const detail = {
               id: dogApi.data.id,
-              image: dogApi.data.image,
+              idImage: dogApi.data.reference_image_id,
               name: dogApi.data.name,
               height: dogApi.data.height.metric,
               weight: dogApi.data.weight.metric,
@@ -126,7 +131,8 @@ module.exports = {
                 image: dog.image,
                 name: dog.name,
                 temper: dog.tempers, 
-                weight: dog.weight
+                weight: dog.weight,
+                dog: dog.origin
 
               }
           });
@@ -136,8 +142,8 @@ module.exports = {
                 image: dog.image,
                 name: dog.name,
                 temper: dog.temperament, 
-                weight: dog.weight.metric
-
+                weight: dog.weight.metric,
+                dog: 'api'
               }
           });
 

@@ -16,6 +16,7 @@ module.exports = (sequelize) => {
     },
     name: {
       type: DataTypes.STRING,
+      unique: true,
       allowNull: false,
     },
     height: {
@@ -30,6 +31,11 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    origin:{
+      type: DataTypes.STRING,
+      defaultValue: 'db',
+      allowNull: false
+    }
   },
   { timestamps: false });
 };
