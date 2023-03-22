@@ -29,7 +29,7 @@ router.post('/dogs', async (req, res) =>{
     const newDog = await dogControllers.createDog(name, image, height, weight,
       life_span, temper);
       
-    res.status(200).json(newDog);
+    res.status(201).json(newDog);
 
   } catch (error) {
       res.status(400).json({ error: error.message });

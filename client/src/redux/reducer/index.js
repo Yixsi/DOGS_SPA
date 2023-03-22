@@ -1,15 +1,18 @@
-import { GET_DOGS, GET_DOG_DETAIL, GET_DOG_BY_NAME, GET_FAVORITES, ADD_FAVORITE, DELETE_FAVORITE, FILTER_BY_TEMP, FILTER_BY_ORIGIN, ALPHAB_ORDER, ORDER_BY_WEIGHT } from '../actions/types';
+import { GET_DOGS, GET_DOG_DETAIL, RESET_DETAIL, GET_DOG_BY_NAME, RESET_DOGS, GET_FAVORITES, ADD_FAVORITE, DELETE_FAVORITE, FILTER_BY_TEMP, FILTER_BY_ORIGIN, ALPHAB_ORDER, ORDER_BY_WEIGHT, GET_TEMPERS, POST_DOG } from '../actions/types';
 
 const initialState = {
     dogs: [],
+    filterDogs: [],
     dogDetail: {},
     favorites: [],
     filter: {
         origin: '',
         temper: []
     },
-    filteredDogs: []
+    tempers: []
 }
+
+
 
 export default function rootReducer(state = initialState, { type, payload }){
 
@@ -17,18 +20,33 @@ export default function rootReducer(state = initialState, { type, payload }){
         case GET_DOGS:
             return {
                 ...state,
-                dogs: payload
+                dogs: payload,
+                filterDogs: payload
+            }
+        case RESET_DOGS:
+            return {
+                ...state,
+                filterDogs: state.dogs
+            }
+        case POST_DOG:
+            return {
+                ...state,
+                dogs: [...state.dogs, payload]
             }
         case GET_DOG_DETAIL:
             return {
                 ...state,
                 dogDetail: payload
             }
+        case RESET_DETAIL:
+            return {
+                ...state,
+                dogDetail: null
+            }
         case GET_DOG_BY_NAME:
             return {
                 ...state,
-                dogs: payload,
-                filteredDogs: payload
+                filterDogs: payload
             }
         case GET_FAVORITES:
             return {
@@ -44,6 +62,11 @@ export default function rootReducer(state = initialState, { type, payload }){
             return {
                 ...state,
                 fitler: {...state.filter, temper: payload}
+            }
+        case GET_TEMPERS:
+            return {
+                ...state,
+                tempers: payload
             }
         default:
             return {

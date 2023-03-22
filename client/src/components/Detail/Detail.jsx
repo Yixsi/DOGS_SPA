@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getDogDetail } from "../../redux/actions";
+import { getDogDetail, resetDetail } from "../../redux/actions";
 import style from './Detail.module.css'
 
 export default function Detail() {
@@ -13,8 +13,11 @@ export default function Detail() {
 
     useEffect(() => {
         dispatch(getDogDetail(id));
+        return () => {
+            dispatch(resetDetail()); // Reset dogDetail state to null
+        };
+    },[dispatch, id]);
 
-    }, []);
     const checkId = () => typeof Number(id) !== 'number';
 
     return (
@@ -29,8 +32,8 @@ export default function Detail() {
                     </ul>
                 </div>
                 {checkId()? 
-                    <img src={dogDetail.image} alt='' className={style.imgDetail} />
-                    : <img src={`https://cdn2.thedogapi.com/images/${dogDetail.image}.jpg`} alt='' className={style.imgDetail} />
+                    <img src={dogDetail?.image} alt='' className={style.imgDetail} />
+                    : <img src={`https://cdn2.thedogapi.com/images/${dogDetail?.image}.jpg`} alt='' className={style.imgDetail} />
                 }
                 
                 

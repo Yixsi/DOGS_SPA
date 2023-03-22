@@ -6,16 +6,6 @@
     justify-content: space-between;
 }
 
-.spanInfo {
-    font-size: 23px;
-    font-family: 'Inter', sans-serif;
-    font-weight: bold;
-    font-size: 30px;
-    word-spacing: 3px;
-    letter-spacing: -0.1rem;
-    color: #68d248;
-}
-
 .cards {
     grid-row: 3/4;
     grid-column: 1/4;

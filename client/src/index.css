@@ -1,9 +1,28 @@
+:root{
+  --mainTextColor: wheat;
+  --titlesColor: #14db80;
+  --titleBlue: #10bebe;
+  --java: #10bebe;
+  --thunder: #231c23;
+  --malachite: #14db80;
+  --genoa: #106a71;
+  --salem: #0a6d46;
+  --bottle-green: #072c29;
+  --zuccini: #04442b;
+  --tarawera: #053f4a;
+  --mine-shaft: #342c2c;
+  --mainFont: 'Raleway', sans-serif;
+  --secFont: 'Roboto', sans-serif;
+  --bg: #231f20;
+
+}
+
 body {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgba(37, 37, 37, 255);
+  background-color: #231f20;
 
 }
 

@@ -35,19 +35,27 @@ export default function Form() {
     }
 
     return (
-        <div className={style.login}>
+        <div className={style.form}>
             <div className={style.container}>
-                <span className={style.loginTitle}>Sign in</span>
+                <span className={style.formTitle}>Add Dog</span>
                 <form onSubmit={handleSubmit} className={style.form} autoComplete="off">
-                    <label htmlFor="username" className={style.label}>Username</label>
-                    <input type="text" name="username" value={user.username} onChange={handleInputChange} className={style.input} />
-                    {errors.username ? <span className={style.formSp}>{errors.username}</span> : <span className={style.alter}></span>}
+                    <label htmlFor="name" className={style.label}>Breed name</label>
+                    <input type="text" name="name" value={user.name} onChange={handleInputChange} className={style.input} />
+                    {errors.name ? <span className={style.formSp}>{errors.name}</span> : <span className={style.alter}></span>}
 
-                    <label htmlFor="password" className={style.label}>Password</label>
-                    <input type="password" name="password" value={user.password} onChange={handleInputChange} className={style.input} />
-                    {errors.password ? <p className={style.formSp}>{errors.password}</p> : <p className={style.alter}></p>}
+                    <label htmlFor="minHeight" className={style.label}>Min height</label>
+                    <input type="text" name="minHeight" value={user.minHeight} onChange={handleInputChange} className={style.input} />
+                    {errors.minHeight ? <p className={style.formSp}>{errors.minHeight}</p> : <p className={style.alter}></p>}
 
-                    <button type="submit" className={style.buttonLogin}>Get started</button>
+                    <label htmlFor="min-height" className={style.label}>Max height</label>
+                    <input type="text" name="maxHeight" value={user.maxHeight} onChange={handleInputChange} className={style.input} />
+                    {errors.maxHeight ? <p className={style.formSp}>{errors.maxHeight}</p> : <p className={style.alter}></p>}
+
+                    <label htmlFor="temper" className={style.label}>Temperament</label>
+                    <select type="text" name="temper" value={user.maxHeight} onChange={handleInputChange} className={style.input}> </select>
+                    {errors.maxHeight ? <p className={style.formSp}>{errors.maxHeight}</p> : <p className={style.alter}></p>}
+
+                    <button type="submit" className={style.buttonDog}>Get started</button>
                 </form>
             </div>
 

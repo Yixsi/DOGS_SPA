@@ -1,23 +1,16 @@
-import { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useRef } from "react";
 import style from './SearchBar.module.css'
-import { getDogByName } from "../../redux/actions";
 
-export default function SearchBar() {
+export default function SearchBar({ onSearch }) {
 
-    const dispatch = useDispatch();
     const inputRef = useRef(null);
 
-    const handleDispatch = (value) => {
-        dispatch(getDogByName(value));
 
-    }
-
-    const handleSearch = (e) => {
-        e.preventDefault();
+    const handleSearch = () => {
+        
         const value = inputRef.current.value;
-        handleDispatch(value);
-        inputRef.current.value = '';
+        onSearch(value);
+        inputRef.current.value = ''
     }
 
     return (
