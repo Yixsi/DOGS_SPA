@@ -41,7 +41,7 @@ export default function rootReducer(state = initialState, { type, payload }){
         case RESET_DETAIL:
             return {
                 ...state,
-                dogDetail: null
+                dogDetail: {}
             }
         case GET_DOG_BY_NAME:
             return {

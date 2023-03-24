@@ -23,11 +23,11 @@ router.get('/dogs', async (req, res) => {
 
 router.post('/dogs', async (req, res) =>{
   
-  const { name, image, height, weight, life_span, temper } = req.body;
+  const { name, image, height, weight, lifeSpan, temper } = req.body;
 
   try {
     const newDog = await dogControllers.createDog(name, image, height, weight,
-      life_span, temper);
+      lifeSpan, temper);
       
     res.status(201).json(newDog);
 

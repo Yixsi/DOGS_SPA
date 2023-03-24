@@ -11,6 +11,8 @@ export default function Card(props) {
    const [ isFavorite, setFavorite ] = useState(false);  
    const dispatch = useDispatch();
 
+   // console.log(props.id);
+
    const checkFavs = ()=>{
       let bool = false;
       if(favorites){
@@ -47,14 +49,15 @@ export default function Card(props) {
          <button onClick={handleFavorite} className={style.button}>
             <i className={favIcon} style={{color: '#ffbf00'}}></i>
          </button>
-         <img  src={props.image} alt="" className={style.imgCard}/>
+         {
+            typeof props.id === 'number' && props.idImage?
+               <img src={`https://cdn2.thedogapi.com/images/${props.idImage}.jpg`} alt="" className={style.imgCard} />
+               :
+               <img src={props.image} alt="" className={style.imgCard} />
+         }
          <Link to={`/detail/${props.id}`} style={{textDecoration: 'none'}}>
             <span className={style.name}>{props.name}</span>
          </Link>
-         <span className={style.data}>
-            <span>{props.species}</span>
-            <span>{props.gender}</span>
-         </span>
       </div>
    );
 }

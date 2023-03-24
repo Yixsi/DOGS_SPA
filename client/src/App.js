@@ -1,11 +1,10 @@
 //import { useState, useEffect } from 'react'
 import './App.css'
-import NavBar from './components/Navbar/Navbar'
 import Detail from './components/Detail/Detail'
 import Form from './components/Form/Form'
 import Home from './components/Home/Home'
 import Landing from './components/Landing/Landing'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom';
 //import Favorites from './components/Favorites'
 
 
@@ -29,7 +28,6 @@ function App () {
   if(pathname !== '/'){
       return(
       <div className='App'>
-        <NavBar/>
         <Routes>
           <Route exact path={'/home'} element={<Home/>}/>
           <Route path={'/detail/:id'} element={<Detail />}/>

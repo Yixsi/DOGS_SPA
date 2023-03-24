@@ -9,16 +9,14 @@ export default function Detail() {
     const { id } = useParams();
     const dispatch = useDispatch();
 
-
-
     useEffect(() => {
         dispatch(getDogDetail(id));
         return () => {
             dispatch(resetDetail()); // Reset dogDetail state to null
         };
-    },[dispatch, id]);
+    }, []);
 
-    const checkId = () => typeof Number(id) !== 'number';
+    const checkId = () => typeof id !== 'number';
 
     return (
         <div className={style.modalContainer}>
@@ -31,12 +29,12 @@ export default function Detail() {
                         <li><b>Temperament:</b> {dogDetail?.temper}</li>
                     </ul>
                 </div>
-                {checkId()? 
+                {checkId() && dogDetail.image ?
                     <img src={dogDetail?.image} alt='' className={style.imgDetail} />
-                    : <img src={`https://cdn2.thedogapi.com/images/${dogDetail?.image}.jpg`} alt='' className={style.imgDetail} />
+                    : <img src={`https://cdn2.thedogapi.com/images/${dogDetail?.idImage}.jpg`} alt='' className={style.imgDetail} />
                 }
-                
-                
+
+
             </div>
         </div>
     )

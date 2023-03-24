@@ -1,6 +1,6 @@
 .card {
     border-radius: 9px;
-    background-color: rgba(245, 222, 179, 0.255);
+    background-color: #231c2373;
     font-family: 'Inter', sans-serif;
     max-height: fit-content;
     max-width: 90%;

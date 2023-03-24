@@ -25,8 +25,6 @@ module.exports = {
 
         let data = [...result.data];
 
-        console.log(dbDogs)
-
         data = data.map(dog => { return {
                 id: dog.id,
                 image: dog.image.url,
@@ -48,13 +46,14 @@ module.exports = {
               }
           });
 
-          data = [...data, ...dbDogs];
+          data = [...dbDogs, ...data];
         return data;
     },
 
     createDog: async (name, image, height, weight, life_span, temper) => {
+      console.log('Entré al controller');
 
-        if(!name || !image || !height || !weight || !life_span || !temper) throw new Error('Missing data');
+        if(!name || !image || !height || !weight || !life_span || !temper.length) throw new Error('Missing data');
 
         const newDog = await Dog.create({name, image, height, weight, life_span});
         await newDog.addTemper(temper);
@@ -128,6 +127,7 @@ module.exports = {
       
       dogs = dogs.map(dog => {
               return {
+                id: dog.id,
                 image: dog.image,
                 name: dog.name,
                 temper: dog.tempers, 
@@ -139,7 +139,8 @@ module.exports = {
       
       data = data.map(dog => {
               return {
-                image: dog.image,
+                id: dog.id,
+                idImage: dog.reference_image_id,
                 name: dog.name,
                 temper: dog.temperament, 
                 weight: dog.weight.metric,
