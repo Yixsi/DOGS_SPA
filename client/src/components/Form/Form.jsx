@@ -1,32 +1,15 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getTempers } from "../../redux/actions";
 import validation from "./validation";
 import style from './Form.module.css';
-import Modal from "./Modal/Modal";
 import { postDog } from '../../redux/actions'
+import SelectTemps from "./Select/SelectTemps";
 
 export default function Form() {
     const dispatch = useDispatch();
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const getSelectedTemps = (array) => {
-        console.log('Id tempers', array);
-        setInput({ ...input, temper: array });
-        setErrors(validation({
-            ...input, temper: array
-        }));
-    }
-
-    const handleOpenModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
-
+    
+    
     const [input, setInput] = useState({
         name: '',
         height: '',
@@ -36,26 +19,22 @@ export default function Form() {
         image: ''
     })
 
-    const [errors, setErrors] = useState({
-        name: '',
-        height: '',
-        weight: '',
-        lifeSpan: '',
-        temper: [],
-        image: ''
-    })
+    const [errors, setErrors] = useState({}); 
+    
+    const getTemps = (array) => {
+        setInput({ ...input, temper: array });
+        setErrors(validation({
+            ...input, temper: array
+        }));
 
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(!Object.entries(errors).length){
+        if(!Object.entries(errors).length){ //If not errors, dispatch
             dispatch(postDog(input));
-            console.log(input);
-            console.log('Created');
         }else{
-            console.log(errors);
-            console.log(input.temper)
-            alert('Invalid data')
+            alert('Invalid data') //Alert user
         }
         
     }
@@ -91,18 +70,14 @@ export default function Form() {
                     </div>
 
                     <div className={style.inputs}>
-                        <label htmlFor="temper" className={style.label}>Temperament</label>
-                        <button onClick={handleOpenModal} className={style.modalButton}>See options <i className="fa-solid fa-eye" style={{ color: '#000'}}></i></button>
-                        <Modal  
-                                isOpen={isModalOpen}
-                                onClose={handleCloseModal}
-                                getTemps={getSelectedTemps}
-                        />
+                        <label htmlFor="temper" className={style.label}>Life span in years</label>
+                        <input type="text" name="lifeSpan" value={input.lifeSpan} onChange={handleInputChange} className={style.input} placeholder="Ex.: 5 - 7" />
+                        {errors.lifeSpan ? <p className={style.formSp}>{errors.lifeSpan}</p> : <p className={style.alter}></p>}
                     </div>
 
                     <div className={style.inputs}>
                         <label htmlFor="temper" className={style.label}>URL Image</label>
-                        <input type="text" name="image" value={input.image} onChange={handleInputChange} className={style.input} />
+                        <input type="text" name="image" value={input.image} onChange={handleInputChange} className={style.input}/>
                         {errors.image ? <p className={style.formSp}>{errors.image}</p> : <p className={style.alter}></p>}
                     </div>
                 </div>
@@ -119,16 +94,15 @@ export default function Form() {
                         {errors.weight ? <p className={style.formSp}>{errors.weight}</p> : <p className={style.alter}></p>}
                     </div>
 
-
                     <div className={style.inputs}>
-                        <label htmlFor="temper" className={style.label}>Life span in years</label>
-                        <input type="text" name="lifeSpan" value={input.lifeSpan} onChange={handleInputChange} className={style.input} placeholder="Ex.: 5 - 7" />
-                        {errors.lifeSpan ? <p className={style.formSp}>{errors.lifeSpan}</p> : <p className={style.alter}></p>}
+                        <label htmlFor="temper" className={style.label}>Temper: select 1 up to 7 tempers</label>
+                        <SelectTemps getTemps={getTemps}/>
+                        {errors.temper ? <p className={style.formSp}>{errors.temper}</p> : <p className={style.alter}></p>}
                     </div>
+                    
                 </div>
                 <button type="submit"  className={style.buttonDog} onClick={() => handleSubmit}>Create dog</button>
             </form>
         </div>
     )
 }
-//onClick={() => handleSubmit}

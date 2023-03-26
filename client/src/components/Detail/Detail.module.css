@@ -6,6 +6,7 @@
     border-radius: 20px;
     z-index: 3;
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    font-family: var(--secFont);
 }
 
 .modalElements {
@@ -21,9 +22,9 @@
 
 .name {
     font-size: 27px;
-    font-family: 'Inter', sans-serif;
     letter-spacing: -0.1rem;
     font-weight: 500;
+    font-family: var(--mainFont);
     margin-bottom: 0;
     margin-left: 5px;
     padding: 8px 30px;
@@ -34,8 +35,7 @@
 .info {
     list-style: none;
     margin-top: 0;
-    font-family: 'Patrick Hand', cursive;
-    font-size: 20px;
+    font-size: 1.2rem;
     word-spacing: 20px;
 }
 

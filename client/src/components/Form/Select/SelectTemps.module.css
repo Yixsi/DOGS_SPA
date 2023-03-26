@@ -1,0 +1,11 @@
+.selectedNames{
+    font-family: var(--secFont);
+    font-weight: 700;
+    color: #fff;
+    margin: 0.4rem 0;
+}
+
+.spanName{
+    color: #cdc;
+    font-weight: 300;
+}

@@ -103,6 +103,7 @@ export default function Home() {
                             weight={el.weight}
                             image={el.image}
                             idImage={el.idImage}
+                            temper={el.temper}
                         />
                     ))}
                 </div>

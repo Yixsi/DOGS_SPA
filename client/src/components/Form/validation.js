@@ -7,7 +7,7 @@ export default function validation(data){
         errors.name = 'Empty field or invalid data. Only letters allowed.';
     }
 
-    if(data.image && ! /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(data.image)) {
+    if(data.image && ! /\bhttps?:\/\/\S+\.(\S+)?(\?\S*)?\b/i.test(data.image)) {
         errors.image = 'Must provide a valid URL';
     }
 
@@ -53,7 +53,7 @@ export default function validation(data){
         }
     }
 
-    if(data.temper  && data.temper.length === 0) errors.temper = 'Must select at least 1 temper';
+    if(data.temper  && (data.temper.length === 0 || data.temper.length > 7)) errors.temper = 'Select 1 up to 7 tempers';
 
     
     return errors;

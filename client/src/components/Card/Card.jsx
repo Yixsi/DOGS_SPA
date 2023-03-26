@@ -58,6 +58,16 @@ export default function Card(props) {
          <Link to={`/detail/${props.id}`} style={{textDecoration: 'none'}}>
             <span className={style.name}>{props.name}</span>
          </Link>
+         <div className={style.dogData}>
+            <span>{props.weight} cm</span>
+            {
+               typeof props.id !== 'number' && props.temper ?
+                  <div className={style.temperDog}>Temper: {props.temper?.map(el => <span>{el.temper} </span>)}</div>
+                  :
+                  <div className={style.temperDog}>Temper: {props.temper}</div>
+            }
+         </div>
+         
       </div>
    );
 }

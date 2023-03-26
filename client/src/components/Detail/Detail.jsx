@@ -26,7 +26,7 @@ export default function Detail() {
                     <ul className={style.info}>
                         <li><b>Weight:</b> {dogDetail?.weight} Kg</li>
                         <li><b>Height:</b> {dogDetail?.height} cm</li>
-                        <li><b>Temperament:</b> {dogDetail?.temper}</li>
+                        <li><b>Temper:</b> {dogDetail?.temper}</li>
                     </ul>
                 </div>
                 {checkId() && dogDetail.image ?

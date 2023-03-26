@@ -1,13 +1,13 @@
 .card {
     border-radius: 9px;
     background-color: #231c2373;
-    font-family: 'Inter', sans-serif;
     max-height: fit-content;
     max-width: 90%;
     overflow: hidden;
     position: relative;
     justify-content: space-around;
     text-align: center;
+    font-family: var(--secFont);
 }
 
 .card:hover {
@@ -61,20 +61,21 @@
 
 }
 
-.data {
-    display: flex;
-    justify-content: space-around;
-    font-size: 22px;
-    margin-top: 20px;
-    color: #68d248;
-    font-family: 'Patrick Hand', cursive;
-}
-
 .name {
     color: #fff;
-    letter-spacing: -0.1rem;
     font-weight: 400;
     font-size: 1.4rem;
+    letter-spacing: -0.03rem;
     display: block;
     text-align: center;
+    text-shadow: 2px 2px 2px #000;
+    
 }
+
+.temperDog {
+    color: var(--mainColorText);
+    font-size: 0.8rem;
+    font-weight: 400;
+    margin-top: 0.3rem;
+}
+
