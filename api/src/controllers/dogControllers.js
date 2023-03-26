@@ -31,7 +31,7 @@ module.exports = {
                 name: dog.name,
                 temper: dog.temperament, 
                 weight: dog.weight.metric,
-                dog: 'api'
+                origin: 'api'
             }
         });
 
@@ -47,6 +47,17 @@ module.exports = {
           });
 
           data = [...dbDogs, ...data];
+
+          //Sending elements in a random order
+          const shuffleArray = (array) => {
+            for (let i = array.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+          };
+
+          data = shuffleArray(data);
         return data;
     },
 
@@ -93,7 +104,7 @@ module.exports = {
               height: dogApi.data.height.metric,
               weight: dogApi.data.weight.metric,
               temper: dogApi.data.temperament,
-              life_span: dogApi.data.life_span
+              life_span: dogApi.data.life_span,
             }
             return detail;
 
@@ -132,7 +143,7 @@ module.exports = {
                 name: dog.name,
                 temper: dog.tempers, 
                 weight: dog.weight,
-                dog: dog.origin
+                origin: dog.origin
 
               }
           });
@@ -144,7 +155,7 @@ module.exports = {
                 name: dog.name,
                 temper: dog.temperament, 
                 weight: dog.weight.metric,
-                dog: 'api'
+                origin: 'api'
               }
           });
 

@@ -11,8 +11,6 @@ export default function Card(props) {
    const [ isFavorite, setFavorite ] = useState(false);  
    const dispatch = useDispatch();
 
-   // console.log(props.id);
-
    const checkFavs = ()=>{
       let bool = false;
       if(favorites){
@@ -44,6 +42,16 @@ export default function Card(props) {
 
    let favIcon = isFavorite ? "fa-solid fa-star" : "fa-regular fa-star";
 
+   const formatTemp = () =>{
+      let temps = '';
+      for(let i = 0; i < props.temper.length; i++){
+         temps += props.temper[i].name
+         if(i === props.temper.length - 1) break;
+         temps += ', ';
+      }
+      return temps;
+   }
+
    return (
       <div className={style.card}>
          <button onClick={handleFavorite} className={style.button}>
@@ -62,7 +70,7 @@ export default function Card(props) {
             <span>{props.weight} cm</span>
             {
                typeof props.id !== 'number' && props.temper ?
-                  <div className={style.temperDog}>Temper: {props.temper?.map(el => <span>{el.temper} </span>)}</div>
+                  <div className={style.temperDog}>Temper: {formatTemp()}</div>
                   :
                   <div className={style.temperDog}>Temper: {props.temper}</div>
             }

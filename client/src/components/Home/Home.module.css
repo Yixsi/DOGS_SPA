@@ -16,11 +16,11 @@
     justify-content: space-around;
     margin: 1rem 0 0 2rem;
     padding-bottom: 1.4rem;
-    
+
 }
 
 .buttonGroup {
-    background-color: #0ea8a8;
+    background-color: var(--java);
     height: fit-content;
     padding: 5px 6px;
     border-radius: 5px;
@@ -30,20 +30,50 @@
 .buttons {
     background-color: #0fc8c800;
     color: #fff;
-    padding: 5px 10px;
+    padding: 5px 15px;
     transition: all 0.6s ease-in;
     font-size: 22px;
     font-family: var(--secFont);
     letter-spacing: -0.08rem;
     border: none;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .buttons:hover {
+    cursor: pointer;
+    background-color: var(--genoa);
+    border-radius: 3px;
+}
+
+/* Search */
+.searchWrapper {
+    display: flex;
+    gap: 1rem;
+}
+
+.createBtn {
+    background-color: #342c2c;
+    height: fit-content;
+    padding: 10px 16px;
+    border-radius: 5px;
+    color: #fff;
+    transition: all 0.6s ease-in;
+    font-size: 22px;
+    font-family: var(--secFont);
+    ;
+    letter-spacing: -0.1rem;
+    border: none;
+    margin-left: 0;
+}
+
+.createBtn:hover {
     cursor: pointer;
     background-color: #096c77;
     border-radius: 3px;
 }
 
+/* Pages */
 .pagesButtons {
     font-size: 2rem;
     cursor: pointer;
@@ -59,31 +89,7 @@
     font-size: 2.1rem;
 }
 
-.searchWrapper {
-    display: flex;
-    gap: 1rem;
-}
-.createBtn {
-    background-color: #342c2c;
-    height: fit-content;
-    padding: 10px 16px;
-    border-radius: 5px;
-    color: #fff;
-    transition: all 0.6s ease-in;
-    font-size: 22px;
-    font-family: var(--secFont);;
-    letter-spacing: -0.1rem;
-    border: none;
-    margin-left: 0;
-}
-
-.createBtn:hover {
-    cursor: pointer;
-    background-color: #096c77;
-    border-radius: 3px;
-}
-
-.pages{
+.pages {
     grid-column: 3/4;
     margin: 0 15px 3px auto;
     font-family: var(--secFont);
@@ -104,7 +110,39 @@
     color: (--java)
 }
 
-.inactivePage:hover{
+.inactivePage:hover {
     border-bottom: 2px solid var(--java);
 }
 
+/* Dropdowns */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownContent {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    background-color: var(--java);
+}
+
+.dropdown:hover .dropdownContent {
+    display: block;
+}
+
+
+.option {
+    text-align: center;
+    font-family: var(--secFont);
+    padding: 5px 10px;
+    margin: 0;
+    color: #fff;
+    
+}
+
+.dropdown .option:hover {
+    background-color: var(--genoa);
+    cursor: pointer;
+    padding: 5px 10px;
+}

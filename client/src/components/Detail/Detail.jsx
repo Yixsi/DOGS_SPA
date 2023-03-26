@@ -9,6 +9,16 @@ export default function Detail() {
     const { id } = useParams();
     const dispatch = useDispatch();
 
+    const formatTemp = () => {
+        let temps = '';
+        for (let i = 0; i < dogDetail.tempers.length; i++) {
+            temps += dogDetail.tempers[i].name
+            if (i === dogDetail.tempers.length - 1) break;
+            temps += ', ';
+        }
+        return temps;
+    }
+
     useEffect(() => {
         dispatch(getDogDetail(id));
         return () => {
@@ -26,7 +36,12 @@ export default function Detail() {
                     <ul className={style.info}>
                         <li><b>Weight:</b> {dogDetail?.weight} Kg</li>
                         <li><b>Height:</b> {dogDetail?.height} cm</li>
-                        <li><b>Temper:</b> {dogDetail?.temper}</li>
+                        {
+                            typeof dogDetail.id !== 'number' && dogDetail.tempers ?
+                                <li><b>Temper:</b> {formatTemp()}</li>
+                                :
+                                <li><b>Temper:</b> {dogDetail.temper}</li>
+                        }
                     </ul>
                 </div>
                 {checkId() && dogDetail.image ?

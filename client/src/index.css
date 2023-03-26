@@ -1,14 +1,13 @@
 :root{
   --mainTextColor: wheat;
   --titlesColor: #14db80;
-  --titleBlue: #10bebe;
   --java: #10bebe;
   --thunder: #231c23;
   --malachite: #14db80;
   --genoa: #106a71;
   --salem: #0a6d46;
   --bottle-green: #072c29;
-  --zuccini: #04442b;
+  --zuccini: #04442d19;
   --tarawera: #053f4a;
   --mine-shaft: #342c2c;
   --mainFont: 'Raleway', sans-serif;
@@ -33,56 +32,9 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .fa-solid {
-  color: #0fc8c8;
+  color: var(--java)
 }
 
-.nav-item {
-  text-decoration: none;
-  color: rgb(230, 133, 48);
-  padding: 3px 20px;
-  border-bottom: 3px solid rgba(230, 133, 48, 0);
-  letter-spacing: 0.2rem;
-  transition: all 0.3s ease-out 0.09s;
-}
-
-.nav-item:hover {
-  border-bottom: 3px solid rgb(230, 133, 48);
-  padding: 3px 20px;
-}
-
-.active {
-  color: wheat;
-  font-weight: bold;
-  padding: 3px 20px;
-}
-
-.active:hover {
-  border-bottom: 3px solid rgba(230, 133, 48, 0);
-}
-
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-  .App {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    padding-left: 25px;
-  }
-
-  .cardGroups {
-    display: grid;
-    grid-column: 1/2;
-  }
-}
-
-.homeButton {
-  text-decoration: none;
-  color: rgb(140, 230, 230);
-}
-
-.homeButton:hover {
-  color: #fff;
-}
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {

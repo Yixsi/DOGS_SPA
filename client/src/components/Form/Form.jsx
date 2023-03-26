@@ -95,7 +95,7 @@ export default function Form() {
                     </div>
 
                     <div className={style.inputs}>
-                        <label htmlFor="temper" className={style.label}>Temper: select 1 up to 7 tempers</label>
+                        <label htmlFor="temper" className={style.label}>Temper: select 1 up to 7 tempers. </label>
                         <SelectTemps getTemps={getTemps}/>
                         {errors.temper ? <p className={style.formSp}>{errors.temper}</p> : <p className={style.alter}></p>}
                     </div>

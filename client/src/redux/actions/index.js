@@ -1,4 +1,4 @@
-import { GET_DOGS, GET_DOG_DETAIL, GET_DOG_BY_NAME, GET_FAVORITES, ADD_FAVORITE, DELETE_FAVORITE, FILTER_BY_TEMP, FILTER_BY_ORIGIN, ALPHAB_ORDER, ORDER_BY_WEIGHT, RESET_DETAIL, RESET_DOGS, GET_TEMPERS, POST_DOG } from './types';
+import { GET_DOGS, GET_DOG_DETAIL, GET_DOG_BY_NAME, GET_FAVORITES, ADD_FAVORITE, DELETE_FAVORITE, ORDER, FILTER, RESET_DETAIL, RESET_DOGS, GET_TEMPERS, POST_DOG } from './types';
 
 import axios from 'axios'
 
@@ -74,31 +74,17 @@ export const getFavorites = ()=>{
   }
 }
 
-export const filterByOrigin = (origin) =>{
+export const filter = (id) =>{
   return{
-    type: FILTER_BY_ORIGIN,
-    payload: origin
+    type: FILTER,
+    payload: id
   }
 }
 
-export const filterByTemp = (temper) =>{
+export const order = (order) =>{
   return{
-    type: FILTER_BY_TEMP,
-    payload: temper
-  }
-}
-
-export const orderCardsAlpha = (alphabetic)=>{
-  return{
-    type: ALPHAB_ORDER,
-    payload: alphabetic 
-  }
-}
-
-export const orderCardsWeight = (alphabetic)=>{
-  return{
-    type: ALPHAB_ORDER,
-    payload: alphabetic 
+    type: ORDER,
+    payload: order
   }
 }
 

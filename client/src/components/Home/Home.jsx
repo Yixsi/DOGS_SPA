@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
 import Card from '../Card/Card';
 import SearchBar from '../SearchBar/SearchBar';
-import { getDogs, filterByOrigin, filterByTemp, getDogByName } from '../../redux/actions';
+import { getDogs, filter, order, getDogByName } from '../../redux/actions';
 import styles from './Home.module.css';
 
 export default function Home() {
-    const { filterDogs, dogs } = useSelector(state => state);
+    const { filterDogs } = useSelector(state => state);
     const [start, setStart] = useState(0);
     const [end, setEnd] = useState(8);
     const [dogsPage, setDogsPage] = useState(filterDogs.slice(start, end));
@@ -32,9 +32,6 @@ export default function Home() {
         dispatch(getDogs());
     };
 
-    useEffect(() => {
-        setDogsPage(filterDogs.slice(start, end));
-    }, [filterDogs, start, end]);
 
     const allPages = () => {
         const nPages = Math.ceil(filterDogs.length / 8);
@@ -59,19 +56,45 @@ export default function Home() {
         return pages;
     }
 
+    const handleSort = (e) => {
+        const { id } = e.target;
+        dispatch(order(id));
+    };
+    const handleFilter = (e) => {
+        const { id } = e.target;
+        dispatch(filter(id));
+    };
+
+    useEffect(() => {
+        setDogsPage(filterDogs.slice(start, end));
+    }, [filterDogs, start, end]);
+
 
     return (
         <>
             <div className={styles.rowOne}>
                 <div className={styles.buttonGroup}>
-                    <Link to="/favorites">
-                        <button className={styles.buttons}>See favorites</button>
+                    <Link to="/favorites" className={styles.buttons}>
+                        See favorites
                     </Link>
-                    <button className={styles.buttons}>Order</button>
-                    <button className={styles.buttons}>Filter</button>
-                    <button className={styles.buttons} onClick={handleAll}>
-                        All
-                    </button>
+                    <div className={styles.dropdown}>
+                        <span className={styles.buttons}>Order</span>
+                        <div className={styles.dropdownContent}>
+                            <p className={styles.option} id='az' onClick={handleSort}>A - Z</p>
+                            <p className={styles.option} id='za' onClick={handleSort}>Z - A</p>
+                            <p className={styles.option} id='light' onClick={handleSort}>Lighter</p>
+                            <p className={styles.option} id='heavy' onClick={handleSort}>Heavier</p>
+                        </div>
+                    </div>
+                    <div className={styles.dropdown}>
+                        <span className={styles.buttons}>Filter by</span>
+                        <div className={styles.dropdownContent}>
+                            <p className={styles.option} id='temper' onClick={handleFilter}>Temper</p>
+                            <p className={styles.option} id='db' onClick={handleFilter}>Origin: DB</p>
+                            <p className={styles.option} id='api' onClick={handleFilter}>Origin: API</p>
+                        </div>
+                    </div>
+                    <button className={styles.buttons} onClick={handleAll}>All</button>
                 </div>
                 <div className={styles.searchWrapper}>
                     <SearchBar onSearch={onSearch} />
@@ -104,6 +127,7 @@ export default function Home() {
                             image={el.image}
                             idImage={el.idImage}
                             temper={el.temper}
+                            origin={el.origin}
                         />
                     ))}
                 </div>

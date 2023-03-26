@@ -1,11 +1,11 @@
 .searchBar {
-    border: 2px solid #0fc8c8;
+    border: 2px solid var(--java);
     border-radius: 15px;
     transition: all 0.5s ease-in-out;
 }
 
 .searchBar:hover {
-    background-color: rgba(186, 120, 237, 0.232);
+    background-color: var(--zuccini);
 }
 
 .input {
@@ -29,6 +29,5 @@
     color: white;
     font-weight: 700;
     font-size: 25px;
-    font-family: 'Inter', sans-serif;
     cursor: pointer;
 }
