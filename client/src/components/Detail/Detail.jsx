@@ -49,7 +49,6 @@ export default function Detail() {
                     : <img src={`https://cdn2.thedogapi.com/images/${dogDetail?.idImage}.jpg`} alt='' className={style.imgDetail} />
                 }
 
-
             </div>
         </div>
     )

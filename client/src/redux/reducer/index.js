@@ -44,25 +44,41 @@ export default function rootReducer(state = initialState, { type, payload }){
                 ...state,
                 filterDogs: payload
             }
-        case GET_FAVORITES:
+        case ADD_FAVORITE:
             return {
                 ...state,
-                favorites: state.favorites
-            }
+                favorites: [...state.favorites, payload]
+            };
+        case GET_FAVORITES:
+                return {
+                    ...state,
+                    favorites: state.favorites
+                }
+        case DELETE_FAVORITE:
+            return {
+                ...state,
+                favorites: state.favorites.filter((el) => el.id !== payload)
+            };
         case FILTER:
             let filtered = [...state.filterDogs];
-            if (payload === "temper") {
-                // filtered.sort((a, b) => a.name.localeCompare(b.name));
-            } else if (payload === 'db' || payload === 'api') {
-                console.log(payload);
-                console.log(filtered.length);
-                filtered = filtered.filter(el => el.origin === payload);
-                console.log(filtered.length);
+            if (payload === 'db' || payload === 'api') {
+            filtered = filtered.filter(el => el.origin === payload);
+            } else {
+                filtered = filtered.filter(el => {
+                    if (!el.temper) {
+                        return false;
+                    } else if (typeof el.temper === 'string') {
+                        return el.temper.toLowerCase().includes(payload.toLowerCase());
+                    } else {
+                        return el.temper.map(name => String(name).toLowerCase() === payload.toLowerCase());
+                    }
+            });
             }
             return {
                 ...state,
                 filterDogs: filtered
-            }
+            };
+
         case ORDER:
             let sortedDogs = [...state.filterDogs];
             if (payload === "az") {

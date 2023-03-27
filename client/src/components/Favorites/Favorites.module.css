@@ -1,0 +1,29 @@
+.favorites {
+    grid-column: 1/4;
+    grid-row: 2/5;
+    display: grid;
+    gap: 2rem;
+    grid-auto-rows: 22rem;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    margin: 5%;
+}
+
+.favTitle{
+    grid-row: 1/2;
+    font-family: var(--mainFont);
+    font-size: 2.5rem;
+    color: var(--thunder);
+    text-shadow: 2px 2px 2px var(--malachite);
+    display: block;
+}
+
+.noFavs {
+    grid-column: 1/4;
+    grid-row: 3/4;
+    font-size: 1.2rem;
+    font-family: var(--secFont);
+    font-size: 1.4rem;
+    word-spacing: 3px;
+    letter-spacing: -0.1rem;
+    color: var(--thunder);
+}

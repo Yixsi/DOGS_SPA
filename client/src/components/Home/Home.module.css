@@ -3,9 +3,16 @@
     grid-row: 1/2;
     margin: 4% 2% 2% 4%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
 }
 
+.logoHome {
+    height: 60px;
+    width: max-content;
+    margin-left: -30px;
+}
 .cards {
     grid-row: 3/4;
     grid-column: 1/4;
@@ -24,6 +31,7 @@
     height: fit-content;
     padding: 5px 6px;
     border-radius: 5px;
+    margin-left: -120px;
 
 }
 
@@ -93,6 +101,7 @@
     grid-column: 3/4;
     margin: 0 15px 3px auto;
     font-family: var(--secFont);
+
 }
 
 .activePage {
@@ -145,4 +154,62 @@
     background-color: var(--genoa);
     cursor: pointer;
     padding: 5px 10px;
+}
+
+.dropdownInnerContent {
+    position: absolute;
+    left: 94px;
+    top: 0;
+    max-height: 250px;
+    z-index: 0;
+    background-color: var(--java);
+    overflow: scroll;
+}
+
+.optionInner{
+    text-align: center;
+    font-family: var(--secFont);
+    padding: 5px 3px;
+    margin: 0;
+    color: #fff;
+}
+
+.optionInner:hover {
+    cursor: pointer;
+    padding: 5px 3px;
+    text-shadow: 1px 1px 2px var(--thunder);
+    margin: 0;
+    /* color: var(--thunder); */
+    font-weight: 600;
+}
+
+/* Not found */
+
+.notFound {
+    grid-column: 1/4;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+    font-family: var(--secFont);
+    color: var(--thunder);
+    font-size: 1.7rem;
+    font-weight: 400;
+}
+.notFound img {
+    height: 60vh;
+    width:fit-content;
+}
+
+@media screen and (max-width: 480px) {
+
+    .rowOne{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .searchWrapper{
+        flex-direction: column;
+    }
+
 }

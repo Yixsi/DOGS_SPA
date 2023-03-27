@@ -3,7 +3,7 @@ import logo from '../../img/LogoNeon-removebg.png';
 import dog from '../../img/Dog-Sitting-PNG-HD.png';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getDogs } from '../../redux/actions';
+import { getDogs} from '../../redux/actions';
 import style from './Landing.module.css';
 import wave from '../../img/Wave-10s-1366px.svg'
 import dogItems from '../../img/dogItemsBGTrans.png'
@@ -16,6 +16,7 @@ export default function Landing(){
 
     useEffect(() => {
         dispatch(getDogs());
+        
     }, [])
     return(
         <div className={style.containerLanding}>

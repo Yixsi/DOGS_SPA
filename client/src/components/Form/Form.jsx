@@ -53,10 +53,6 @@ export default function Form() {
         }));
     }
 
-    useEffect(() => {
-        dispatch(getTempers());
-    }, [])
-
     return (
         <div className={style.formWrapper}>
             <span className={style.formTitle}>Add Dog</span>

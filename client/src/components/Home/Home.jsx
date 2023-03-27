@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Card from '../Card/Card';
 import SearchBar from '../SearchBar/SearchBar';
-import { getDogs, filter, order, getDogByName } from '../../redux/actions';
+import { getDogs, filter, order, getDogByName, getTempers } from '../../redux/actions';
 import styles from './Home.module.css';
+import notFound from '../../img/notFound.png';
+import logo from '../../img/favicon.png'
 
 export default function Home() {
-    const { filterDogs } = useSelector(state => state);
+    const { filterDogs, tempers } = useSelector(state => state);
     const [start, setStart] = useState(0);
     const [end, setEnd] = useState(8);
     const [dogsPage, setDogsPage] = useState(filterDogs.slice(start, end));
+    const [showTemperDropdown, setShowTemperDropdown] = useState(false); // add state variable to toggle visibility of temper dropdown
 
     const dispatch = useDispatch();
 
@@ -60,19 +63,28 @@ export default function Home() {
         const { id } = e.target;
         dispatch(order(id));
     };
+
     const handleFilter = (e) => {
         const { id } = e.target;
         dispatch(filter(id));
+        setShowTemperDropdown(!showTemperDropdown);
+    };
+
+    const handleTemperClick = () => {
+        setShowTemperDropdown(!showTemperDropdown); // toggle visibility of temper dropdown
     };
 
     useEffect(() => {
+        dispatch(getTempers());
         setDogsPage(filterDogs.slice(start, end));
     }, [filterDogs, start, end]);
+
 
 
     return (
         <>
             <div className={styles.rowOne}>
+                <img src={logo} alt='logo' className={styles.logoHome}/>
                 <div className={styles.buttonGroup}>
                     <Link to="/favorites" className={styles.buttons}>
                         See favorites
@@ -89,7 +101,14 @@ export default function Home() {
                     <div className={styles.dropdown}>
                         <span className={styles.buttons}>Filter by</span>
                         <div className={styles.dropdownContent}>
-                            <p className={styles.option} id='temper' onClick={handleFilter}>Temper</p>
+                            <p className={styles.option} onMouseOver={handleTemperClick}>Temper</p>
+                            {showTemperDropdown && (
+                                <div className={styles.dropdownInnerContent}>
+                                    {tempers && tempers.map(temper => 
+                                        (<p key={temper.id} id={temper.name} onClick={handleFilter} className={styles.optionInner}>{temper.name}</p>)
+                                    )}
+                                </div>
+                            )}
                             <p className={styles.option} id='db' onClick={handleFilter}>Origin: DB</p>
                             <p className={styles.option} id='api' onClick={handleFilter}>Origin: API</p>
                         </div>
@@ -132,6 +151,10 @@ export default function Home() {
                     ))}
                 </div>
             )}
+            { filterDogs.length === 0 && <div className={styles.notFound}>
+                    <p>Oops no more results</p>
+                    <img src={notFound} alt='notFound'/>
+                </div>}
             <div className={styles.pages}>
                 {allPages()}
                 <hr style={{border: 'white'}}/>

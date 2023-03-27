@@ -6,9 +6,10 @@ import { addFavorite, deleteFavorite } from '../../redux/actions';
 
 export default function Card(props) {
 
-   const favorites = useSelector(state => state.favorites);
-   const cards = useSelector(state => state.characters);
-   const [ isFavorite, setFavorite ] = useState(false);  
+   const { favorites } = useSelector(state => state);
+   const { filterDogs }= useSelector(state => state);
+   const [ isFavorite, setFavorite ] = useState(false); 
+
    const dispatch = useDispatch();
 
    const checkFavs = ()=>{
@@ -27,15 +28,17 @@ export default function Card(props) {
       return () =>{
          checkFavs();
       }
-   }, [favorites, cards]
+   }, [favorites, filterDogs]
    );
 
-   const handleFavorite = ()=>{
+
+   const handleFavorite = () =>{
       if(isFavorite){
          setFavorite(false);
          dispatch(deleteFavorite(props.id));
       }else{
          setFavorite(true);
+         
          dispatch(addFavorite(props));
       }
    }
@@ -64,10 +67,10 @@ export default function Card(props) {
                <img src={props.image} alt="" className={style.imgCard} />
          }
          <Link to={`/detail/${props.id}`} style={{textDecoration: 'none'}}>
-            <span className={style.name}>{props.name}</span>
+            <span className={style.name}r>{props.name}</span>
          </Link>
          <div className={style.dogData}>
-            <span>{props.weight} cm</span>
+            <span>{props.weight} Kg</span>
             {
                typeof props.id !== 'number' && props.temper ?
                   <div className={style.temperDog}>Temper: {formatTemp()}</div>
@@ -75,7 +78,7 @@ export default function Card(props) {
                   <div className={style.temperDog}>Temper: {props.temper}</div>
             }
          </div>
-         
+
       </div>
    );
 }
