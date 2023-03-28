@@ -62,7 +62,6 @@ module.exports = {
     },
 
     createDog: async (name, image, height, weight, life_span, temper) => {
-      console.log('Entré al controller');
 
         if(!name || !image || !height || !weight || !life_span || !temper.length) throw new Error('Missing data');
 

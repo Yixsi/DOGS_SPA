@@ -1,11 +1,13 @@
-import { GET_DOGS, GET_DOG_DETAIL, RESET_DETAIL, GET_DOG_BY_NAME, RESET_DOGS, GET_FAVORITES, ADD_FAVORITE, DELETE_FAVORITE, FILTER, ORDER, GET_TEMPERS, POST_DOG } from '../actions/types';
+import { GET_DOGS, GET_DOG_DETAIL, RESET_DETAIL, GET_DOG_BY_NAME, RESET_DOGS, GET_FAVORITES, ADD_FAVORITE, DELETE_FAVORITE, FILTER, ORDER, GET_TEMPERS, POST_DOG_SUCCESS, POST_DOG_ERROR, POST_DOG_SUCCESS_RESET, POST_DOG_ERROR_RESET } from '../actions/types';
 
 const initialState = {
     dogs: [],
     filterDogs: [],
     dogDetail: {},
     favorites: [],
-    tempers: []
+    tempers: [],
+    success: null,
+    error: null
 }
 
 
@@ -24,11 +26,27 @@ export default function rootReducer(state = initialState, { type, payload }){
                 ...state,
                 filterDogs: state.dogs
             }
-        case POST_DOG:
+        case POST_DOG_SUCCESS:
             return {
                 ...state,
+                success: 'Dog created succesfully',
                 dogs: [...state.dogs, payload]
             }
+        case POST_DOG_SUCCESS_RESET:
+            return {
+                ...state,
+                success: null
+            };
+        case POST_DOG_ERROR:
+            return {
+                ...state,
+                error: payload
+            }
+        case POST_DOG_ERROR_RESET:
+            return {
+                ...state,
+                error: null
+            };
         case GET_DOG_DETAIL:
             return {
                 ...state,

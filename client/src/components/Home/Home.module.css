@@ -163,7 +163,7 @@
     max-height: 250px;
     z-index: 0;
     background-color: var(--java);
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 .optionInner{

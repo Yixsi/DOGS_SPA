@@ -1,4 +1,4 @@
-import { GET_DOGS, GET_DOG_DETAIL, GET_DOG_BY_NAME, GET_FAVORITES, ADD_FAVORITE, DELETE_FAVORITE, ORDER, FILTER, RESET_DETAIL, RESET_DOGS, GET_TEMPERS, POST_DOG } from './types';
+import { GET_DOGS, GET_DOG_DETAIL, GET_DOG_BY_NAME, GET_FAVORITES, ADD_FAVORITE, DELETE_FAVORITE, ORDER, FILTER, RESET_DETAIL, RESET_DOGS, GET_TEMPERS, POST_DOG_SUCCESS, POST_DOG_SUCCESS_RESET, POST_DOG_ERROR, POST_DOG_ERROR_RESET } from './types';
 
 import axios from 'axios'
 
@@ -47,13 +47,49 @@ export const resetDetail = () => {
 
 export const postDog = (dogData) => {
   return async (dispatch) => {
-    const response = await axios.post('http://localhost:3001/dogs', dogData);
-    return dispatch({
-      type: POST_DOG,
-      payload: response.data
-    })
-  }
-}
+    try {
+      const response = await axios.post('http://localhost:3001/dogs', dogData);
+
+      if (response.status === 201) {
+        dispatch({
+          type: POST_DOG_SUCCESS,
+          payload: response.data
+        });
+        // set success state to null after 5 seconds
+        setTimeout(() => {
+          dispatch({
+            type: POST_DOG_SUCCESS_RESET
+          });
+        }, 5000);
+      } else {
+        dispatch({
+          type: POST_DOG_ERROR,
+          payload: "Failed to create dog."
+        });
+        // set error state to null after 5 seconds
+        setTimeout(() => {
+          dispatch({
+            type: POST_DOG_ERROR_RESET
+          });
+        }, 5000);
+      }
+    } catch (error) {
+      console.log(error); // log the error for debugging purposes
+      dispatch({
+        type: POST_DOG_ERROR,
+        payload: "Failed to create dog."
+      });
+      // set error state to null after 5 seconds
+      setTimeout(() => {
+        dispatch({
+          type: POST_DOG_ERROR_RESET
+        });
+      }, 5000);
+    }
+  };
+};
+
+
 export const addFavorite = (favorite) =>{
     return{
         type: ADD_FAVORITE,

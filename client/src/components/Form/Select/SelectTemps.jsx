@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import style from './SelectTemps.module.css'
+import { getTempers } from '../../../redux/actions';
 
 const SelectTemps = ({ getTemps }) => {
     const { tempers } = useSelector(state => state);
     const [selected, setSelected] = useState([]);
     const [names, setNames] = useState([]);
+    const dispatch = useDispatch();
 
     const handleSelect = (e) => {
         const { selectedOptions } = e.target;
@@ -20,6 +22,7 @@ const SelectTemps = ({ getTemps }) => {
         if (selected.length > 0) {
             getTemps(selected);
         }
+        if(tempers.length === 0) dispatch(getTempers());
     }, [selected]);
 
     return (

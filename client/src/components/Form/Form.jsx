@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTempers } from "../../redux/actions";
 import validation from "./validation";
 import style from './Form.module.css';
 import { postDog } from '../../redux/actions'
 import SelectTemps from "./Select/SelectTemps";
 
 export default function Form() {
-    const dispatch = useDispatch();
+    const { success, error } = useSelector(state => state);
     
+    const dispatch = useDispatch();
     
     const [input, setInput] = useState({
         name: '',
@@ -33,8 +33,24 @@ export default function Form() {
         e.preventDefault();
         if(!Object.entries(errors).length){ //If not errors, dispatch
             dispatch(postDog(input));
+            setInput({
+                name: '',
+                height: '',
+                weight: '',
+                lifeSpan: '',
+                temper: [],
+                image: ''
+            })
         }else{
-            alert('Invalid data') //Alert user
+            alert('Invalid data'); //Alert user
+            setInput({
+                name: '',
+                height: '',
+                weight: '',
+                lifeSpan: '',
+                temper: [],
+                image: ''
+            })
         }
         
     }
@@ -56,6 +72,12 @@ export default function Form() {
     return (
         <div className={style.formWrapper}>
             <span className={style.formTitle}>Add Dog</span>
+            {
+                error && alert(error)
+            }
+            {
+                success && alert(success)
+            }
             <form onSubmit={handleSubmit} className={style.form} autoComplete="off">
                 
                 <div className={style.wrapper}>
