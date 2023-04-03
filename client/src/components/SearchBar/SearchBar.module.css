@@ -51,8 +51,9 @@
 
     .searchBar{
         width: 30vw;
-        
     }
-
+    .input{
+        max-width: 25vw;
+    }
 }
 

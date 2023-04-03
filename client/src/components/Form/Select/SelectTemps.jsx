@@ -17,7 +17,6 @@ const SelectTemps = ({ getTemps }) => {
         setNames(namesSelected);
     };
 
-    console.log(selected)
     useEffect(() => {
         if (selected.length > 0) {
             getTemps(selected);

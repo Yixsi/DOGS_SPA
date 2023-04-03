@@ -66,7 +66,7 @@
 
 .dropdownInnerContent {
     position: absolute;
-    left: 94px;
+    right: 4.6rem;
     top: 0;
     max-height: 250px;
     z-index: 0;
@@ -101,12 +101,10 @@
        margin-bottom: 3%;
        padding: 4px;
        z-index: 10;      
-       
     }
 
     .burger-dropdown{
-        font-size: 1.2rem;
-        width: 85vw;
+        font-size: 0.9rem;
 
     }
     .dropdown{
@@ -146,9 +144,6 @@
 }
 
 @media screen and (max-width: 480px) {
-    .regular-buttons {
-        display: none;
-    }
 
     .buttons {
         font-size: 1.3rem;

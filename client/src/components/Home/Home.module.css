@@ -6,7 +6,6 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    overflow-x: hidden;
     z-index: 100;
 }
 
@@ -222,7 +221,7 @@
 @media screen and (max-width: 760px) {
     .rowOne{
         z-index: 100;
-       
+       max-width: 90vw;
     }
     .searchWrapper{
         margin-left: auto;
