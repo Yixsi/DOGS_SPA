@@ -29,7 +29,7 @@ export default function Detail() {
     const checkId = () => typeof id !== 'number';
 
     return (
-        <div className={style.modalContainer}>
+        <>
             <div className={style.modalElements}>
                 <div className={style.text}>
                     <h2 className={style.name}>{dogDetail?.name}</h2>
@@ -44,12 +44,13 @@ export default function Detail() {
                         }
                     </ul>
                 </div>
-                {checkId() && dogDetail.image ?
-                    <img src={dogDetail?.image} alt='' className={style.imgDetail} />
-                    : <img src={`https://cdn2.thedogapi.com/images/${dogDetail?.idImage}.jpg`} alt='' className={style.imgDetail} />
-                }
-
+                <div>
+                    {checkId() && dogDetail.image ?
+                        <img src={dogDetail?.image} alt='' className={style.imgDetail} />
+                        : <img src={`https://cdn2.thedogapi.com/images/${dogDetail?.idImage}.jpg`} alt='' className={style.imgDetail} />
+                    }
+                </div>
             </div>
-        </div>
+        </>
     )
 }
