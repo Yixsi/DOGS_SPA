@@ -3,22 +3,33 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Card from '../Card/Card';
 import SearchBar from '../SearchBar/SearchBar';
-import { getDogs, filter, order, getDogByName, getTempers } from '../../redux/actions';
-import styles from './Home.module.css';
+import Buttons from './Buttons/Buttons'
+import { getDogs, filter, order, getDogByName, getTempers, resetDogs } from '../../redux/actions';
+import style from './Home.module.css';
 import notFound from '../../img/notFound.png';
 import logo from '../../img/favicon.png'
+import dogIcon from '../../img/dog-icon-white.png'
+import right from '../../img/right-arrow-blue.png'
+import left from '../../img/left-arrow-blue.png'
 
 export default function Home() {
     const { filterDogs, tempers } = useSelector(state => state);
     const [start, setStart] = useState(0);
     const [end, setEnd] = useState(8);
     const [dogsPage, setDogsPage] = useState(filterDogs.slice(start, end));
-    const [showTemperDropdown, setShowTemperDropdown] = useState(false); // add state variable to toggle visibility of temper dropdown
+    const [showTemperDropdown, setShowTemperDropdown] = useState(false);
+    const [loading, setLoading] = useState(false);
+
 
     const dispatch = useDispatch();
 
     const onSearch = name => {
+        dispatch(resetDogs())
         dispatch(getDogByName(name));
+        setStart(0);
+        setEnd(8);
+        setDogsPage(filterDogs.slice(0, 8));
+
     };
 
     const handlePage = direction => {
@@ -29,6 +40,7 @@ export default function Home() {
             setStart(start + 8);
             setEnd(end + 8);
         }
+
     };
 
     const handleAll = () => {
@@ -50,7 +62,7 @@ export default function Home() {
                         setEnd(i * 8);
                         setDogsPage(filterDogs?.slice((i - 1) * 8, i * 8));
                     }}
-                    className={currentPage === i ? styles.activePage : styles.inactivePage}
+                    className={currentPage === i ? style.activePage : style.inactivePage}
                 >
                     {i}
                 </span>
@@ -68,6 +80,10 @@ export default function Home() {
         const { id } = e.target;
         dispatch(filter(id));
         setShowTemperDropdown(!showTemperDropdown);
+        setStart(0);
+        setEnd(8);
+        setDogsPage(filterDogs.slice(0, 8));
+
     };
 
     const handleTemperClick = () => {
@@ -83,62 +99,41 @@ export default function Home() {
 
     return (
         <>
-            <div className={styles.rowOne}>
-                <img src={logo} alt='logo' className={styles.logoHome}/>
-                <div className={styles.buttonGroup}>
-                    <Link to="/favorites" className={styles.buttons}>
-                        See favorites
-                    </Link>
-                    <div className={styles.dropdown}>
-                        <span className={styles.buttons}>Order</span>
-                        <div className={styles.dropdownContent}>
-                            <p className={styles.option} id='az' onClick={handleSort}>A - Z</p>
-                            <p className={styles.option} id='za' onClick={handleSort}>Z - A</p>
-                            <p className={styles.option} id='light' onClick={handleSort}>Lighter</p>
-                            <p className={styles.option} id='heavy' onClick={handleSort}>Heavier</p>
-                        </div>
-                    </div>
-                    <div className={styles.dropdown}>
-                        <span className={styles.buttons}>Filter by</span>
-                        <div className={styles.dropdownContent}>
-                            <p className={styles.option} onMouseOver={handleTemperClick}>Temper</p>
-                            {showTemperDropdown && (
-                                <div className={styles.dropdownInnerContent}>
-                                    {tempers && tempers.map(temper => 
-                                        (<p key={temper.id} id={temper.name} onClick={handleFilter} className={styles.optionInner}>{temper.name}</p>)
-                                    )}
-                                </div>
-                            )}
-                            <p className={styles.option} id='db' onClick={handleFilter}>Origin: DB</p>
-                            <p className={styles.option} id='api' onClick={handleFilter}>Origin: API</p>
-                        </div>
-                    </div>
-                    <button className={styles.buttons} onClick={handleAll}>All</button>
+            <div className={style.rowOne}>
+                <div className={style.logoBtns}>
+                    <img src={logo} alt='logo' className={style.logoHome} />
+                    <Buttons 
+                            handleAll={handleAll}
+                            handleSort={handleSort}
+                            handleTemperClick={handleTemperClick}
+                            handleFilter={handleFilter}
+                            tempers={tempers}
+                            showTemperDropdown={showTemperDropdown}
+                    />
                 </div>
-                <div className={styles.searchWrapper}>
+                <div className={style.searchWrapper}>
                     <SearchBar onSearch={onSearch} />
                     <Link to="/form">
-                        <button className={styles.createBtn}>
-                            Add new <i className="fa-solid fa-dog" style={{ color: '#fff' }} />
+                        <button className={style.createBtn}>
+                            Add <img src={dogIcon} alt='dog' />
                         </button>
                     </Link>
                 </div>
-                <div>
-                    <button onClick={() => handlePage('next')} className={styles.pagesButtons}>
-                        <i className="fa-solid fa-circle-arrow-right" />
-                    </button>
-                    <button onClick={() => handlePage('prev')} className={styles.pagesButtons}>
-                        <i className="fa-solid fa-circle-arrow-left" />
-                    </button>
-                </div>
             </div>
-            <div className={styles.pages}>
-                {allPages()}
-            </div>
+            { dogsPage.length > 0 && <div className={style.pages}>
+                                    <button onClick={() => handlePage('prev')} className={style.arrowBtn}>
+                                        <img src={left} alt='left' className={style.arrowInt} />
+                                    </button>
+                                    {allPages()}
+                                    <button onClick={() => handlePage('next')} className={style.arrowBtn}>
+                                        <img src={right} alt='right' className={style.arrowInt} />
+                                    </button>
+                                </div>
+            }
             {dogsPage && (
-                <div className={styles.cards}>
+                <div className={style.cards}>
                     {dogsPage.map(el => (
-                        <Card 
+                        <Card
                             key={el.id}
                             id={el.id}
                             name={el.name}
@@ -151,14 +146,20 @@ export default function Home() {
                     ))}
                 </div>
             )}
-            { filterDogs.length === 0 && <div className={styles.notFound}>
-                    <p>Oops no more results</p>
-                    <img src={notFound} alt='notFound'/>
-                </div>}
-            <div className={styles.pages}>
+            {filterDogs.length === 0 && <div className={style.notFound}>
+                <p>Oops no more results</p>
+                <img src={notFound} alt='notFound' />
+            </div>}
+            { dogsPage.length > 0 && <div className={style.pages}>
+                <button onClick={() => handlePage('prev')} className={style.arrowBtn}>
+                    <img src={left} alt='left' className={style.arrowInt} />
+                </button>
                 {allPages()}
-                <hr style={{border: 'white'}}/>
-            </div>
+                <button onClick={() => handlePage('next')} className={style.arrowBtn}>
+                    <img src={right} alt='right' className={style.arrowInt} />
+                </button>
+            </div>}
+            
         </>
     );
 }

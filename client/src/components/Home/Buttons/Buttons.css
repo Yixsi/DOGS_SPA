@@ -1,0 +1,140 @@
+/* Regular menu*/
+.burger-menu {
+    display: none;
+}
+
+.buttonGroup {
+    background-color: var(--java);
+    height: fit-content;
+    padding: 5px 6px;
+    border-radius: 5px;
+    margin-left: 10px;
+
+}
+
+.buttons {
+    background-color: #0fc8c800;
+    color: #fff;
+    padding: 5px 15px;
+    transition: all 0.6s ease-in;
+    font-size: 22px;
+    font-family: var(--secFont);
+    letter-spacing: -0.08rem;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.buttons:hover {
+    cursor: pointer;
+    background-color: var(--genoa);
+    border-radius: 3px;
+}
+
+/* Dropdowns */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    z-index: 100;
+}
+
+.dropdownContent {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    background-color: var(--java);
+}
+
+.dropdown:hover .dropdownContent {
+    display: block;
+}
+
+.option {
+    text-align: center;
+    font-family: var(--secFont);
+    padding: 5px 10px;
+    margin: 0;
+    color: #fff;
+
+}
+
+.dropdown .option:hover {
+    background-color: var(--genoa);
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.dropdownInnerContent {
+    position: absolute;
+    left: 94px;
+    top: 0;
+    max-height: 250px;
+    z-index: 0;
+    background-color: var(--java);
+    overflow-y: scroll;
+}
+
+.optionInner {
+    text-align: center;
+    font-family: var(--secFont);
+    padding: 5px;
+    color: #fff
+
+}
+.optionInner:hover {
+    cursor: pointer;
+    padding: 5px 3px;
+    text-shadow: 1px 1px 2px var(--thunder);
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Media query for burger menu */
+@media screen and (max-width: 980px) {
+    .regular-buttons {
+        display: none;
+    }
+
+    .burger-menu {
+       display: block;
+       margin-bottom: 2%;
+       padding: 4px;
+    }
+
+    .burger-dropdown{
+        display: flex;
+        flex-direction: column;
+        font-size: 1.2rem;
+        width: 80vw;
+    }
+    .buttons{
+        font-size: 1.3rem;
+    }
+    
+
+}
+
+@media screen and (max-width: 760px) {
+
+
+    .burger-menu {
+        padding: 2px;
+    }
+
+
+}
+
+@media screen and (max-width: 480px) {
+    .regular-buttons {
+        display: none;
+    }
+
+    .burger-menu {
+        display: block;
+    }
+
+    .buttons {
+        font-size: 1.2rem;
+    }
+
+}

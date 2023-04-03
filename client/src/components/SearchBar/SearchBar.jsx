@@ -1,5 +1,6 @@
 import { useRef } from "react";
-import style from './SearchBar.module.css'
+import style from './SearchBar.module.css';
+import searchIcon from '../../img/search-java.png'
 
 export default function SearchBar({ onSearch }) {
 
@@ -16,7 +17,7 @@ export default function SearchBar({ onSearch }) {
     return (
         <div className={style.searchBar}>
             <input type="text" placeholder="Search" className={style.input} ref={inputRef} />
-            <button onClick={handleSearch} className={style.button}><i className="fa-solid fa-magnifying-glass-plus"></i></button>
+            <button onClick={handleSearch} className={style.buttonImg}><img src={searchIcon} alt='searchIcon'/></button>
         </div>
     );
 }

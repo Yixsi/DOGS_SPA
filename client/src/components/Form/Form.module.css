@@ -13,7 +13,7 @@
 .wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
-    width: 100%;
+    width: 80vw;
     z-index: 1;
     gap: 3rem;
     margin-top: 2%;
@@ -21,10 +21,11 @@
 }
 
 .inputs {
-    position: relative;
+
     display: flex;
     flex-direction: column;
     margin-bottom: 0;
+    width: fit-content;
 }
 
 
@@ -107,4 +108,11 @@ input:-internal-autofill-selected {
 .modalButton:hover {
     cursor: pointer;
     background-color: #096c77;
+}
+
+@media screen and (max-width: 760px){
+    .inputs{
+        width: 70vw;
+    }
+    
 }

@@ -59,7 +59,7 @@ export default function rootReducer(state = initialState, { type, payload }){
             }
         case GET_DOG_BY_NAME:
             return {
-                ...state,
+                // ...state,
                 filterDogs: payload
             }
         case ADD_FAVORITE:

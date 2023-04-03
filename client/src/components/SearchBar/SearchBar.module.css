@@ -2,6 +2,12 @@
     border: 2px solid var(--java);
     border-radius: 15px;
     transition: all 0.5s ease-in-out;
+    width: 25vw;
+    display: flex;
+    flex-wrap: no-wrap;
+    align-items: center;
+    position: relative;
+    left: 0;
 }
 
 .searchBar:hover {
@@ -17,17 +23,35 @@
     border: none;
     font-size: 25px;
     background-color: transparent;
-    color: rgb(95, 99, 95)
+    color: rgb(95, 99, 95);
 }
 
-.button {
+.buttonImg {
+    position: absolute;
+    right: 0;
     outline: none;
     box-shadow: none;
     border: none;
-    padding: 5px;
     background-color: transparent;
-    color: white;
-    font-weight: 700;
-    font-size: 25px;
     cursor: pointer;
 }
+
+@media screen and (max-width: 760px) {
+
+    .input{
+        font-size: 1.1rem;
+    }
+    .buttonImg{
+        align-self: center;
+        top: 9px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    .searchBar{
+        width: 30vw;
+    }
+
+}
+

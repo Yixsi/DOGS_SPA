@@ -3,19 +3,21 @@ import style from './Card.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { addFavorite, deleteFavorite } from '../../redux/actions';
+import starLine from '../../img/Star_line.png';
+import startFull from '../../img/star-fav.png'
 
 export default function Card(props) {
 
    const { favorites } = useSelector(state => state);
-   const { filterDogs }= useSelector(state => state);
-   const [ isFavorite, setFavorite ] = useState(false); 
+   const { filterDogs } = useSelector(state => state);
+   const [isFavorite, setFavorite] = useState(false);
 
    const dispatch = useDispatch();
 
-   const checkFavs = ()=>{
+   const checkFavs = () => {
       let bool = false;
-      if(favorites){
-         for(let f of favorites){
+      if (favorites) {
+         for (let f of favorites) {
             if (f.id === props.id) {
                bool = true;
             }
@@ -25,31 +27,29 @@ export default function Card(props) {
    }
    useEffect(() => {
       checkFavs();
-      return () =>{
+      return () => {
          checkFavs();
       }
    }, [favorites, filterDogs]
    );
 
 
-   const handleFavorite = () =>{
-      if(isFavorite){
+   const handleFavorite = () => {
+      if (isFavorite) {
          setFavorite(false);
          dispatch(deleteFavorite(props.id));
-      }else{
+      } else {
          setFavorite(true);
-         
+
          dispatch(addFavorite(props));
       }
    }
 
-   let favIcon = isFavorite ? "fa-solid fa-star" : "fa-regular fa-star";
-
-   const formatTemp = () =>{
+   const formatTemp = () => {
       let temps = '';
-      for(let i = 0; i < props.temper.length; i++){
+      for (let i = 0; i < props.temper.length; i++) {
          temps += props.temper[i].name
-         if(i === props.temper.length - 1) break;
+         if (i === props.temper.length - 1) break;
          temps += ', ';
       }
       return temps;
@@ -57,17 +57,23 @@ export default function Card(props) {
 
    return (
       <div className={style.card}>
+         
          <button onClick={handleFavorite} className={style.button}>
-            <i className={favIcon} style={{color: '#ffbf00'}}></i>
+            {
+               isFavorite? 
+                  <img src={startFull} alt='fav' />
+                  :
+                  <img src={starLine} alt='fav' className={style.starLine}/>
+            }
          </button>
          {
-            typeof props.id === 'number' && props.idImage?
+            typeof props.id === 'number' && props.idImage ?
                <img src={`https://cdn2.thedogapi.com/images/${props.idImage}.jpg`} alt="" className={style.imgCard} />
                :
                <img src={props.image} alt="" className={style.imgCard} />
          }
-         <Link to={`/detail/${props.id}`} style={{textDecoration: 'none'}}>
-            <span className={style.name}r>{props.name}</span>
+         <Link to={`/detail/${props.id}`} style={{ textDecoration: 'none' }}>
+            <span className={style.name}>{props.name}</span>
          </Link>
          <div className={style.dogData}>
             <span>{props.weight} Kg</span>
