@@ -26,7 +26,7 @@ const Buttons = ({ handleAll, handleSort, handleTemperClick, handleFilter, tempe
             {/* Regular Buttons */}
             <div className="buttonGroup regular-buttons">
                 <Link to="/favorites" className="buttons">
-                    See favorites
+                    Favorites
                 </Link>
                 <div className="dropdown">
                     <span className="buttons">Order</span>
@@ -38,7 +38,7 @@ const Buttons = ({ handleAll, handleSort, handleTemperClick, handleFilter, tempe
                     </div>
                 </div>
                 <div className="dropdown">
-                    <span className="buttons">Filter by</span>
+                    <span className="buttons">Filter</span>
                     <div className="dropdownContent">
                         <p className="option" onMouseOver={handleTemperClick}>Temper</p>
                         {showTemperDropdown && (
@@ -63,7 +63,7 @@ const Buttons = ({ handleAll, handleSort, handleTemperClick, handleFilter, tempe
                 {menuOpen && (
                     <div className="burger-dropdown">
                         <Link to="/favorites" className="buttons">
-                            See favorites
+                            Favorites
                         </Link>
                         <div className="dropdown">
                             <span className="buttons">Order</span>
@@ -76,7 +76,7 @@ const Buttons = ({ handleAll, handleSort, handleTemperClick, handleFilter, tempe
                         </div>
 
                         <div className="dropdown">
-                            <span className="buttons">Filter by</span>
+                            <span className="buttons">Filter</span>
                             <div className="dropdownContent">
                                 <p className="option" onMouseOver={handleTemperClick}>Temper</p>
                                 {showTemperDropdown && (

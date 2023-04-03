@@ -6,6 +6,8 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    overflow-x: hidden;
+    z-index: 100;
 }
 
 .logoHome {
@@ -219,7 +221,11 @@
 
 @media screen and (max-width: 760px) {
     .rowOne{
-        overflow: hidden;
+        z-index: 100;
+       
+    }
+    .searchWrapper{
+        margin-left: auto;
     }
     .logoHome{
         display: none;

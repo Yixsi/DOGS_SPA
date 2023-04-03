@@ -18,7 +18,6 @@ export default function Home() {
     const [end, setEnd] = useState(8);
     const [dogsPage, setDogsPage] = useState(filterDogs.slice(start, end));
     const [showTemperDropdown, setShowTemperDropdown] = useState(false);
-    const [loading, setLoading] = useState(false);
 
 
     const dispatch = useDispatch();

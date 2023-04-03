@@ -35,7 +35,6 @@
 .dropdown {
     position: relative;
     display: inline-block;
-    z-index: 100;
 }
 
 .dropdownContent {
@@ -62,6 +61,7 @@
     background-color: var(--genoa);
     cursor: pointer;
     padding: 5px 10px;
+
 }
 
 .dropdownInnerContent {
@@ -96,21 +96,42 @@
     }
 
     .burger-menu {
-       display: block;
-       margin-bottom: 2%;
+       display: flex;
+       flex-wrap: nowrap;
+       margin-bottom: 3%;
        padding: 4px;
+       z-index: 10;      
+       
     }
 
     .burger-dropdown{
-        display: flex;
-        flex-direction: column;
         font-size: 1.2rem;
-        width: 80vw;
+        width: 85vw;
+
+    }
+    .dropdown{
+        min-height:max-content;
+    }
+    .dropdownContent{
+        position: absolute;
+
+
+    }
+    .dropdown:hover .dropdownContent {
+        z-index: 990;
+        height: max-content;
     }
     .buttons{
-        font-size: 1.3rem;
+        font-size: 1.5rem;
+        padding: 3px 10px;
+        
     }
-    
+    .optionInner:hover{
+        display: block;
+        position: absolute;
+        right: 250px;
+        
+    }
 
 }
 
@@ -129,12 +150,11 @@
         display: none;
     }
 
-    .burger-menu {
-        display: block;
-    }
-
     .buttons {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
 
+    .option{
+        font-size: 0.8rem;
+    }
 }
