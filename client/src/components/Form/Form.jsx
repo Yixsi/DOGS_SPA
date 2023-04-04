@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom"
 import validation from "./validation";
 import style from './Form.module.css';
 import { postDog } from '../../redux/actions'
@@ -42,15 +43,7 @@ export default function Form() {
                 image: ''
             })
         }else{
-            alert('Invalid data'); //Alert user
-            setInput({
-                name: '',
-                height: '',
-                weight: '',
-                lifeSpan: '',
-                temper: [],
-                image: ''
-            })
+            alert('Empty or invalid data'); //Alert user
         }
         
     }
@@ -119,7 +112,10 @@ export default function Form() {
                     </div>
                     
                 </div>
-                <button type="submit"  className={style.buttonDog} onClick={() => handleSubmit}>Create dog</button>
+                <div className={style.formBtns}>
+                    <button type="submit"  className={style.buttonDog} onClick={() => handleSubmit}>Create dog</button>
+                    <Link to='/home'><button className={style.backBtn}>Back</button></Link>
+                </div>
             </form>
         </div>
     )

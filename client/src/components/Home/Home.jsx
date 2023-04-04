@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Card from '../Card/Card';
 import SearchBar from '../SearchBar/SearchBar';
-import Buttons from './Buttons/Buttons'
+import Buttons from './Buttons/Buttons';
+import Pagination from './Pagination/Pagination';
 import { getDogs, filter, order, getDogByName, getTempers, resetDogs } from '../../redux/actions';
 import style from './Home.module.css';
 import notFound from '../../img/notFound.png';
@@ -47,28 +48,31 @@ export default function Home() {
     };
 
 
-    const allPages = () => {
-        const nPages = Math.ceil(filterDogs.length / 8);
-        const currentPage = Math.floor(start / 8) + 1;
-        let pages = [];
+    // const allPages = () => {
+    //     const nPages = Math.ceil(filterDogs.length / 8);
+    //     const currentPage = Math.floor(start / 8) + 1;
+    //     let pages = [];
 
-        for (let i = 1; i <= nPages; i++) {
-            pages.push(
-                <span
-                    key={i}
-                    onClick={() => {
-                        setStart((i - 1) * 8);
-                        setEnd(i * 8);
-                        setDogsPage(filterDogs?.slice((i - 1) * 8, i * 8));
-                    }}
-                    className={currentPage === i ? style.activePage : style.inactivePage}
-                >
-                    {i}
-                </span>
-            );
-        }
-        return pages;
-    }
+    //     for (let i = 1; i <= nPages; i++) {
+    //         pages.push(
+    //             <span
+    //                 key={i}
+    //                 onClick={() => {
+    //                     setStart((i - 1) * 8);
+    //                     setEnd(i * 8);
+    //                     setDogsPage(filterDogs?.slice((i - 1) * 8, i * 8));
+    //                 }}
+    //                 className={currentPage === i ? style.activePage : style.inactivePage}
+    //             >
+    //                 {i}
+    //             </span>
+    //         );
+    //     }
+    //     return pages;
+    // }
+
+    const nPages = Math.ceil(filterDogs.length / 8);
+    const currentPage = Math.floor(start / 8) + 1;
 
     const handleSort = (e) => {
         const { id } = e.target;
@@ -123,7 +127,15 @@ export default function Home() {
                                     <button onClick={() => handlePage('prev')} className={style.arrowBtn}>
                                         <img src={left} alt='left' className={style.arrowInt} />
                                     </button>
-                                    {allPages()}
+                                    <Pagination
+                                        currentPage={currentPage}
+                                        totalPages={nPages}
+                                        onChangePage={(pageNumber) => {
+                                            setStart((pageNumber - 1) * 8);
+                                            setEnd(pageNumber * 8);
+                                            setDogsPage(filterDogs?.slice((pageNumber - 1) * 8, pageNumber * 8));
+                                        }}
+                                    />
                                     <button onClick={() => handlePage('next')} className={style.arrowBtn}>
                                         <img src={right} alt='right' className={style.arrowInt} />
                                     </button>
@@ -153,7 +165,15 @@ export default function Home() {
                 <button onClick={() => handlePage('prev')} className={style.arrowBtn}>
                     <img src={left} alt='left' className={style.arrowInt} />
                 </button>
-                {allPages()}
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={nPages}
+                    onChangePage={(pageNumber) => {
+                        setStart((pageNumber - 1) * 8);
+                        setEnd(pageNumber * 8);
+                        setDogsPage(filterDogs?.slice((pageNumber - 1) * 8, pageNumber * 8));
+                    }}
+                />
                 <button onClick={() => handlePage('next')} className={style.arrowBtn}>
                     <img src={right} alt='right' className={style.arrowInt} />
                 </button>

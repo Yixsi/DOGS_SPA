@@ -1,0 +1,18 @@
+.activePage {
+    background-color: #342c2c;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.inactivePage {
+    padding: 3px;
+    cursor: pointer;
+    color: (--java)
+}
+
+.inactivePage:hover {
+    border-bottom: 2px solid var(--java);
+}

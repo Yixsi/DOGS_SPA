@@ -39,9 +39,9 @@
 }
 
 .label {
-    font-weight:400;
+    font-weight: 400;
     color: #fff;
-    
+
 }
 
 .input {
@@ -94,6 +94,7 @@ input:-internal-autofill-selected {
 .alter {
     height: 6px;
 }
+
 .modalButton {
     width: fit-content;
     margin-top: 7px;
@@ -110,9 +111,27 @@ input:-internal-autofill-selected {
     background-color: #096c77;
 }
 
-@media screen and (max-width: 760px){
-    .inputs{
+.backBtn {
+    background-color: #072c29;
+    padding: 10px 16px;
+    color: #fff;
+    transition: all 0.6s ease-in;
+    font-size: 20px;
+    font-family: var(--secFont);
+    letter-spacing: -0.1rem;
+    border: none;
+    margin-left: 0;
+}
+
+.backBtn:hover {
+    cursor: pointer;
+    background-color: #096c77;
+    border-radius: 3px;
+}
+
+@media screen and (max-width: 760px) {
+    .inputs {
         width: 70vw;
     }
-    
+
 }

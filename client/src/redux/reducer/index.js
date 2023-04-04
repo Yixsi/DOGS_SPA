@@ -88,7 +88,7 @@ export default function rootReducer(state = initialState, { type, payload }){
                     } else if (typeof el.temper === 'string') {
                         return el.temper.toLowerCase().includes(payload.toLowerCase());
                     } else {
-                        return el.temper.map(name => String(name).toLowerCase() === payload.toLowerCase());
+                        return el.temper.filter(name => String(name.name).toLowerCase() === payload.toLowerCase()).length !== 0;
                     }
             });
             }
